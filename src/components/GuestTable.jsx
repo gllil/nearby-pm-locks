@@ -1,22 +1,22 @@
 import { Suspense, useEffect, useState } from "react";
 import { Col, Container, Row, Table } from "react-bootstrap";
 import { db } from "../firebase/config";
-import { collection, getDoc, doc, onSnapshot, query } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { DateTime } from "luxon";
 
 const GuestTable = () => {
   const [reservations, setReservations] = useState(null);
-  const [property, setProperty] = useState(null);
+  //   const [property, setProperty] = useState(null);
 
-  const getListingPropertyName = async (id) => {
-    const docSnap = await getDoc(doc(db, "listings", parseFloat(id)));
-    if (docSnap.exists()) {
-      console.log(docSnap.data().propertyName);
-      return docSnap.data().propertyName;
-    } else {
-      console.log("no such document");
-    }
-  };
+  //   const getListingPropertyName = async (id) => {
+  //     const docSnap = await getDoc(doc(db, "listings", parseFloat(id)));
+  //     if (docSnap.exists()) {
+  //       console.log(docSnap.data().propertyName);
+  //       return docSnap.data().propertyName;
+  //     } else {
+  //       console.log("no such document");
+  //     }
+  //   };
   useEffect(() => {
     let resArray = [];
     const q = query(collection(db, "bookings"));
