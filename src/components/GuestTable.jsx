@@ -46,7 +46,6 @@ const GuestTable = () => {
             <thead>
               <tr>
                 <th>Guest Name</th>
-                <th>Property</th>
                 <th>Check In</th>
                 <th>Check Out</th>
                 <th>Door Code</th>

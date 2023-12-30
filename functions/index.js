@@ -65,9 +65,12 @@ exports.getReservations = onCall(async () => {
 });
 
 exports.storeInFirestore = onRequest((req, res) => {
+  if (req.body.object !== "reservation" || req.body.data.status === "inquiry") {
+    return;
+  }
   db.collection("bookings")
-    .doc(JSON.stringify(req.body.id))
-    .set(req.body, { merge: true })
+    .doc(JSON.stringify(req.body.data.id))
+    .set(req.body.data, { merge: true })
     .then(() => {
       res.status(200).send("Booking Updated");
     })
@@ -149,10 +152,6 @@ exports.addToSeam = onDocumentCreated("bookings/{bookingId}", async (event) => {
     .then((doc) => {
       console.log(JSON.stringify(doc.data()));
       const listing = doc.data();
-      if (!doc.exists()) {
-        console.log("Document was not found");
-        return;
-      }
 
       fetch("https://connect.getseam.com/access_codes/create", {
         method: "POST",
